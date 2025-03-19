@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:LabWork9.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:LabWork9.Views"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="LabWork9.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="LabWork9">
+	<StackPanel Margin="10">
+
+		<!-- Поля ввода логина и пароля -->
+		<TextBox Watermark="Логин" Text="{Binding Login, Mode=TwoWay}"/>
+		<TextBox Watermark="Пароль" Text="{Binding Password, Mode=TwoWay}" PasswordChar="*"/>
+
+		<!-- Кнопки действий -->
+		<StackPanel Orientation="Horizontal" Spacing="5">
+			<Button Content="Добавить" Command="{Binding AddUser}"/>
+			<Button Content="Редактировать" Command="{Binding UpdateUser}"/>
+			<Button Content="Удалить" Command="{Binding DeleteUser}"/>
+		</StackPanel>
+
+		<!-- Список пользователей -->
+		<ListBox ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser, Mode=TwoWay}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Orientation="Horizontal" Spacing="10">
+						<TextBlock Text="{Binding Login}"/>
+						<Button Content="Удалить" Command="{Binding DataContext.DeleteUser, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding Id}"/>
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+
+	</StackPanel>
+	
+</Window>
